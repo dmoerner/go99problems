@@ -127,3 +127,36 @@ func Pack[S ~[]E, E comparable](s S) []S {
 
 	return packed
 }
+
+// Encode (10): Run-length encoding of a list.
+//
+// Since Go does not have tuples, we need to build a generic struct. Without a built-in
+// or efficient `map` function, it makes sense to rewrite this rather than using Pack.
+type RLEPair[E comparable] struct {
+	Count   int
+	Element E
+}
+
+func Encode[S ~[]E, E comparable](s S) []RLEPair[E] {
+	if s == nil {
+		return nil
+	}
+
+	var encoded []RLEPair[E]
+
+	thisEl := s[0]
+	thisCount := 0
+	for _, v := range s {
+		if v != thisEl {
+			encoded = append(encoded, RLEPair[E]{thisCount, thisEl})
+			thisCount = 0
+
+		}
+		thisCount += 1
+		thisEl = v
+	}
+
+	encoded = append(encoded, RLEPair[E]{thisCount, thisEl})
+
+	return encoded
+}
