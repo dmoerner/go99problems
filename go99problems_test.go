@@ -58,3 +58,31 @@ func TestMyButLast(t *testing.T) {
 		t.Errorf("fail with byte slice, expected: %c, received: %c", byte_expected, byte_received)
 	}
 }
+
+func TestElementAt(t *testing.T) {
+	int_input := []int{1, 2, 3}
+	int_k := 2
+	int_expected := 2
+
+	int_received, err := ElementAt(int_input, int_k)
+	if err != nil {
+		t.Errorf("unexpected error with int slice")
+	}
+
+	if int_received != int_expected {
+		t.Errorf("fail with int slice, expected: %d, received: %d", int_expected, int_received)
+	}
+
+	byte_input := []byte("golang")
+	byte_k := 5
+	byte_expected := byte('n')
+
+	byte_received, err := ElementAt(byte_input, byte_k)
+	if err != nil {
+		t.Errorf("unexpected error with byte slice")
+	}
+
+	if byte_received != byte_expected {
+		t.Errorf("fail with byte slice, expected: %d, received: %d", byte_expected, byte_received)
+	}
+}

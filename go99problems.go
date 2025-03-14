@@ -19,3 +19,11 @@ func MyButLast[T any](s []T) (T, error) {
 	}
 	return s[len(s)-2], nil
 }
+
+// ElementAt (3): Find the K'th element of a list, one-indexed.
+func ElementAt[T any](s []T, k int) (T, error) {
+	if k >= len(s) {
+		return *new(T), fmt.Errorf("k is greater than length of list")
+	}
+	return s[k-1], nil
+}
