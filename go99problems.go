@@ -82,3 +82,23 @@ func Flatten[T any](nested NestedSlice[T]) []T {
 	}
 	return flattened
 }
+
+// Compress (8): Eliminate consecutive duplicates of list elements.
+//
+// Implemented to return a new slice.
+func Compress[S ~[]E, E comparable](s S) S {
+	var compressed S
+	lastUnique := 0
+	for i, v := range s {
+		if i == 0 {
+			compressed = append(compressed, v)
+			continue
+		}
+
+		if v != s[lastUnique] {
+			compressed = append(compressed, v)
+			lastUnique = i
+		}
+	}
+	return compressed
+}

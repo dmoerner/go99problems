@@ -206,3 +206,21 @@ func TestFlatten(t *testing.T) {
 		t.Errorf("fail with empty nested slice %v, expected: %v, received: %v", empty_input, empty_expected, empty_received)
 	}
 }
+
+func TestCompress(t *testing.T) {
+	byte_input := []byte("aaaabccaadeeee")
+	byte_expected := []byte("abcade")
+	byte_received := Compress(byte_input)
+
+	if diff := slices.Compare(byte_expected, byte_received); diff != 0 {
+		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
+	}
+
+	empty_input := []byte("")
+	empty_expected := []byte("")
+	empty_received := Compress(empty_input)
+
+	if diff := slices.Compare(empty_expected, empty_received); diff != 0 {
+		t.Errorf("fail with empty slice %s, expected: %s, received: %s", empty_input, empty_expected, empty_received)
+	}
+}
