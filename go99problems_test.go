@@ -11,11 +11,11 @@ func TestMyLast(t *testing.T) {
 
 	int_received, err := MyLast(int_input)
 	if err != nil {
-		t.Errorf("unexpected error with int slice")
+		t.Errorf("unexpected error with int slice %v", int_input)
 	}
 
 	if int_received != int_expected {
-		t.Errorf("fail with int slice, expected: %d, received: %d", int_expected, int_received)
+		t.Errorf("fail with int slice %v, expected: %d, received: %d", int_input, int_expected, int_received)
 	}
 
 	byte_input := []byte("xyz")
@@ -23,11 +23,11 @@ func TestMyLast(t *testing.T) {
 
 	byte_received, err := MyLast(byte_input)
 	if err != nil {
-		t.Errorf("unexpected error with byte slice")
+		t.Errorf("unexpected error with byte slice %v", byte_input)
 	}
 
 	if byte_received != byte_expected {
-		t.Errorf("fail with byte slice, expected: %c, received: %c", byte_expected, byte_received)
+		t.Errorf("fail with byte slice %v, expected: %c, received: %c", byte_input, byte_expected, byte_received)
 	}
 }
 
@@ -37,11 +37,11 @@ func TestMyButLast(t *testing.T) {
 
 	int_received, err := MyButLast(int_input)
 	if err != nil {
-		t.Errorf("unexpected error with int slice")
+		t.Errorf("unexpected error with int slice %v", int_input)
 	}
 
 	if int_received != int_expected {
-		t.Errorf("fail with int slice, expected: %d, received: %d", int_expected, int_received)
+		t.Errorf("fail with int slice %v, expected: %d, received: %d", int_input, int_expected, int_received)
 	}
 
 	var byte_input []byte
@@ -54,11 +54,11 @@ func TestMyButLast(t *testing.T) {
 
 	byte_received, err := MyButLast(byte_input)
 	if err != nil {
-		t.Errorf("unexpected error with byte slice")
+		t.Errorf("unexpected error with byte slice %v", byte_input)
 	}
 
 	if byte_received != byte_expected {
-		t.Errorf("fail with byte slice, expected: %c, received: %c", byte_expected, byte_received)
+		t.Errorf("fail with byte slice %v, expected: %c, received: %c", byte_input, byte_expected, byte_received)
 	}
 }
 
@@ -69,11 +69,11 @@ func TestElementAt(t *testing.T) {
 
 	int_received, err := ElementAt(int_input, int_k)
 	if err != nil {
-		t.Errorf("unexpected error with int slice")
+		t.Errorf("unexpected error with int slice %v", int_input)
 	}
 
 	if int_received != int_expected {
-		t.Errorf("fail with int slice, expected: %d, received: %d", int_expected, int_received)
+		t.Errorf("fail with int slice %v, expected: %d, received: %d", int_input, int_expected, int_received)
 	}
 
 	byte_input := []byte("golang")
@@ -82,11 +82,11 @@ func TestElementAt(t *testing.T) {
 
 	byte_received, err := ElementAt(byte_input, byte_k)
 	if err != nil {
-		t.Errorf("unexpected error with byte slice")
+		t.Errorf("unexpected error with byte slice %v", byte_input)
 	}
 
 	if byte_received != byte_expected {
-		t.Errorf("fail with byte slice, expected: %d, received: %d", byte_expected, byte_received)
+		t.Errorf("fail with byte slicei %v, expected: %d, received: %d", byte_input, byte_expected, byte_received)
 	}
 }
 
@@ -97,7 +97,7 @@ func TestMyLength(t *testing.T) {
 	int_received := MyLength(int_input)
 
 	if int_received != int_expected {
-		t.Errorf("fail with int slice, expected: %d, received: %d", int_expected, int_received)
+		t.Errorf("fail with int slice %v, expected: %d, received: %d", int_input, int_expected, int_received)
 	}
 
 	byte_input := []byte("Hello, world!")
@@ -106,7 +106,7 @@ func TestMyLength(t *testing.T) {
 	byte_received := MyLength(byte_input)
 
 	if byte_received != byte_expected {
-		t.Errorf("fail with byte slice, expected: %d, received: %d", byte_expected, byte_received)
+		t.Errorf("fail with byte slice %v, expected: %d, received: %d", byte_input, byte_expected, byte_received)
 	}
 }
 
@@ -120,7 +120,7 @@ func TestMyReverse(t *testing.T) {
 	int_received := MyReverse(int_input)
 
 	if diff := slices.Compare(int_expected, int_received); diff != 0 {
-		t.Errorf("fail with int slice, expected: %v, received: %v", int_expected, int_received)
+		t.Errorf("fail with int slice %v, expected: %v, received: %v", int_input, int_expected, int_received)
 	}
 
 	byte_input := []byte("A man, a plan, a canal, panama!")
@@ -132,6 +132,32 @@ func TestMyReverse(t *testing.T) {
 	byte_received := MyReverse(byte_input)
 
 	if diff := slices.Compare(byte_expected, byte_received); diff != 0 {
-		t.Errorf("fail with byte slice, expected: %v, received: %v", byte_expected, byte_received)
+		t.Errorf("fail with byte slice %v, expected: %v, received: %v", byte_input, byte_expected, byte_received)
+	}
+}
+
+func TestIsPalindrome(t *testing.T) {
+	int_false_input := []int{1, 2, 3}
+	int_false_received := IsPalindrome(int_false_input)
+	int_false_expected := false
+
+	if int_false_received != int_false_expected {
+		t.Errorf("fail with int slice %v, expected: %t, received: %t", int_false_input, int_false_received, int_false_expected)
+	}
+
+	int_true_input := []int{1, 2, 4, 8, 16, 8, 4, 2, 1}
+	int_true_received := IsPalindrome(int_true_input)
+	int_true_expected := true
+
+	if int_true_received != int_true_expected {
+		t.Errorf("fail with int slice %v, expected: %t, received: %t", int_true_input, int_true_received, int_true_expected)
+	}
+
+	byte_true_input := []byte("madamimadam")
+	byte_true_received := IsPalindrome(byte_true_input)
+	byte_true_expected := true
+
+	if byte_true_received != byte_true_expected {
+		t.Errorf("fail with byte slice %v, expected: %t, received: %t", byte_true_input, byte_true_received, byte_true_expected)
 	}
 }

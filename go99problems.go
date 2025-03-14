@@ -44,3 +44,15 @@ func MyReverse[S ~[]E, E any](s S) S {
 	}
 	return reversed
 }
+
+// IsPalindrome (6): Find out whether a list is a palindrome.
+func IsPalindrome[S ~[]E, E comparable](s S) bool {
+	mid := len(s) / 2
+	reversed := MyReverse(s[len(s)-1-mid:])
+	for i := range mid {
+		if s[i] != reversed[i] {
+			return false
+		}
+	}
+	return true
+}
