@@ -261,3 +261,20 @@ func TestEncode(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected: %v, received: %v", byte_input, byte_expected, byte_received)
 	}
 }
+
+func TestEncodeModified(t *testing.T) {
+	byte_input := []byte("aaaabccaadeeee")
+	byte_expected := [][]interface{}{
+		{4, byte('a')},
+		{1, byte('b')},
+		{2, byte('c')},
+		{2, byte('a')},
+		{1, byte('d')},
+		{4, byte('e')},
+	}
+	byte_received := EncodeModified(byte_input)
+
+	if !cmp.Equal(byte_expected, byte_received) {
+		t.Errorf("fail with byte slice %s, expected: %v, received: %v", byte_input, byte_expected, byte_received)
+	}
+}

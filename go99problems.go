@@ -160,3 +160,31 @@ func Encode[S ~[]E, E comparable](s S) []RLEPair[E] {
 
 	return encoded
 }
+
+// EncodeModified (11): This does not make much sense in Go because slices are
+// all of one type unless you use an interface slice, which should be avoided
+// at all costs. Other languages like Haskell with the same contraints use option
+// ADTs for this, which Go also does not support. The struct approach from Problem
+// 10 is best, but here's a simple interface implementation anyway with a flat slice.
+func EncodeModified[S ~[]E, E comparable](s S) [][]interface{} {
+	if s == nil {
+		return nil
+	}
+
+	var encoded [][]interface{}
+
+	thisEl := s[0]
+	thisCount := 0
+	for _, v := range s {
+		if v != thisEl {
+			encoded = append(encoded, []interface{}{thisCount, thisEl})
+			thisCount = 0
+		}
+		thisCount += 1
+		thisEl = v
+	}
+
+	encoded = append(encoded, []interface{}{thisCount, thisEl})
+
+	return encoded
+}
