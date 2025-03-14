@@ -27,3 +27,10 @@ func ElementAt[T any](s []T, k int) (T, error) {
 	}
 	return s[k-1], nil
 }
+
+// MyLength (4): Find the number of elements in a list.
+//
+// I do not know of another way to do this which would not depend on the built-in len.
+func MyLength[T any](s []T) int {
+	return len(s)
+}

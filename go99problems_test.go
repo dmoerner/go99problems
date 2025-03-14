@@ -86,3 +86,23 @@ func TestElementAt(t *testing.T) {
 		t.Errorf("fail with byte slice, expected: %d, received: %d", byte_expected, byte_received)
 	}
 }
+
+func TestMyLength(t *testing.T) {
+	int_input := []int{123, 456, 789}
+	int_expected := 3
+
+	int_received := MyLength(int_input)
+
+	if int_received != int_expected {
+		t.Errorf("fail with int slice, expected: %d, received: %d", int_expected, int_received)
+	}
+
+	byte_input := []byte("Hello, world!")
+	byte_expected := 13
+
+	byte_received := MyLength(byte_input)
+
+	if byte_received != byte_expected {
+		t.Errorf("fail with byte slice, expected: %d, received: %d", byte_expected, byte_received)
+	}
+}
