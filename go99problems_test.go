@@ -161,3 +161,48 @@ func TestIsPalindrome(t *testing.T) {
 		t.Errorf("fail with byte slice %v, expected: %t, received: %t", byte_true_input, byte_true_received, byte_true_expected)
 	}
 }
+
+func TestFlatten(t *testing.T) {
+	singleton_input := NestedSlice[int]{
+		values:   []int{5},
+		children: nil,
+	}
+
+	singleton_expected := []int{5}
+	singleton_received := Flatten(singleton_input)
+
+	if diff := slices.Compare(singleton_expected, singleton_received); diff != 0 {
+		t.Errorf("fail with singleton nested slice %v, expected: %v, received: %v", singleton_input, singleton_expected, singleton_received)
+	}
+
+	full_input := NestedSlice[int]{
+		values: []int{1, 2},
+		children: []*NestedSlice[int]{
+			{
+				values: []int{3},
+				children: []*NestedSlice[int]{
+					{values: []int{4, 5}},
+				},
+			},
+		},
+	}
+
+	full_expected := []int{1, 2, 3, 4, 5}
+	full_received := Flatten(full_input)
+
+	if diff := slices.Compare(full_expected, full_received); diff != 0 {
+		t.Errorf("fail with full nested slice %v, expected: %v, received: %v", full_input, full_expected, full_received)
+	}
+
+	empty_input := NestedSlice[int]{
+		values:   []int{},
+		children: nil,
+	}
+
+	empty_expected := []int{}
+	empty_received := Flatten(empty_input)
+
+	if diff := slices.Compare(empty_expected, empty_received); diff != 0 {
+		t.Errorf("fail with empty nested slice %v, expected: %v, received: %v", empty_input, empty_expected, empty_received)
+	}
+}

@@ -2,7 +2,10 @@
 // to the classic 99 Prolog problems.
 package go99problems
 
-import "fmt"
+import (
+	"fmt"
+	"slices"
+)
 
 // MyLast (1): Find the last element of a list.
 func MyLast[S ~[]E, E any](s S) (E, error) {
@@ -55,4 +58,27 @@ func IsPalindrome[S ~[]E, E comparable](s S) bool {
 		}
 	}
 	return true
+}
+
+// Flatten (7): Flatten a nested list structure
+//
+// This has no direct parallel in the Go type system. Without ADTs, we also cannot
+// construct an exact analogue with the slices and elements interspersed. The closest
+// I can think of is a recursively defined struct with separate values and children.
+//
+// What is the efficient way to do this? slices.Concat will return a new slice
+// for variadic arguments, but I don't think we can get all the other slices
+// without doing a map. So we will just have to return a new slice on each recursive
+// call.
+type NestedSlice[T any] struct {
+	values   []T
+	children []*NestedSlice[T]
+}
+
+func Flatten[T any](nested NestedSlice[T]) []T {
+	flattened := nested.values
+	for _, child := range nested.children {
+		flattened = slices.Concat(flattened, Flatten(*child))
+	}
+	return flattened
 }
