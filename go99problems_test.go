@@ -3,6 +3,8 @@ package go99problems
 import (
 	"slices"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestMyLast(t *testing.T) {
@@ -214,6 +216,24 @@ func TestCompress(t *testing.T) {
 
 	if diff := slices.Compare(byte_expected, byte_received); diff != 0 {
 		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
+	}
+
+	empty_input := []byte("")
+	empty_expected := []byte("")
+	empty_received := Compress(empty_input)
+
+	if diff := slices.Compare(empty_expected, empty_received); diff != 0 {
+		t.Errorf("fail with empty slice %s, expected: %s, received: %s", empty_input, empty_expected, empty_received)
+	}
+}
+
+func TestPack(t *testing.T) {
+	byte_input := []byte("aaaabccaadeeee")
+	byte_expected := [][]byte{[]byte("aaaa"), []byte("b"), []byte("cc"), []byte("aa"), []byte("d"), []byte("eeee")}
+	byte_received := Pack(byte_input)
+
+	if !cmp.Equal(byte_expected, byte_received) {
+		t.Errorf("fail with byte slice %s, expected: %v, received: %v", byte_input, byte_expected, byte_received)
 	}
 
 	empty_input := []byte("")

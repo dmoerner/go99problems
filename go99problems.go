@@ -102,3 +102,28 @@ func Compress[S ~[]E, E comparable](s S) S {
 	}
 	return compressed
 }
+
+// Pack (9): Pack consecutive duplicates of list elements into sublists.
+func Pack[S ~[]E, E comparable](s S) []S {
+	if s == nil {
+		return nil
+	}
+
+	var packed []S
+
+	thisEl := s[0]
+	var thisElSlice S
+	for _, v := range s {
+		if v != thisEl {
+			packed = append(packed, thisElSlice)
+			thisElSlice = nil
+
+		}
+		thisElSlice = append(thisElSlice, v)
+		thisEl = v
+	}
+
+	packed = append(packed, thisElSlice)
+
+	return packed
+}
