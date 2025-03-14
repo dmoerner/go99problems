@@ -1,6 +1,9 @@
 package go99problems
 
-import "testing"
+import (
+	"slices"
+	"testing"
+)
 
 func TestMyLast(t *testing.T) {
 	int_input := []int{1, 2, 3, 4}
@@ -104,5 +107,31 @@ func TestMyLength(t *testing.T) {
 
 	if byte_received != byte_expected {
 		t.Errorf("fail with byte slice, expected: %d, received: %d", byte_expected, byte_received)
+	}
+}
+
+func TestMyReverse(t *testing.T) {
+	int_input := []int{1, 2, 3, 4}
+
+	int_expected := make([]int, len(int_input))
+	_ = copy(int_expected, int_input)
+	slices.Reverse(int_expected)
+
+	int_received := MyReverse(int_input)
+
+	if diff := slices.Compare(int_expected, int_received); diff != 0 {
+		t.Errorf("fail with int slice, expected: %v, received: %v", int_expected, int_received)
+	}
+
+	byte_input := []byte("A man, a plan, a canal, panama!")
+
+	byte_expected := make([]byte, len(byte_input))
+	_ = copy(byte_expected, byte_input)
+	slices.Reverse(byte_expected)
+
+	byte_received := MyReverse(byte_input)
+
+	if diff := slices.Compare(byte_expected, byte_received); diff != 0 {
+		t.Errorf("fail with byte slice, expected: %v, received: %v", byte_expected, byte_received)
 	}
 }
