@@ -278,3 +278,20 @@ func TestEncodeModified(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected: %v, received: %v", byte_input, byte_expected, byte_received)
 	}
 }
+
+func TestDecode(t *testing.T) {
+	byte_input := []RLEPair[byte]{
+		{4, byte('a')},
+		{1, byte('b')},
+		{2, byte('c')},
+		{2, byte('a')},
+		{1, byte('d')},
+		{4, byte('e')},
+	}
+	byte_expected := []byte("aaaabccaadeeee")
+	byte_received := Decode(byte_input)
+
+	if !cmp.Equal(byte_expected, byte_received) {
+		t.Errorf("fail with byte slice %v, expected: %s, received: %s", byte_input, byte_expected, byte_received)
+	}
+}

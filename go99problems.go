@@ -188,3 +188,18 @@ func EncodeModified[S ~[]E, E comparable](s S) [][]interface{} {
 
 	return encoded
 }
+
+// Decode (12): Decode a run-length encoded list. The original versions use the
+// modified encode from Problem 11, but we will use the more idiomatic struct
+// implementation I made for Problem 10.
+func Decode[E comparable](e []RLEPair[E]) []E {
+	var decoded []E
+
+	for _, v := range e {
+		for i := 0; i < v.Count; i++ {
+			decoded = append(decoded, v.Element)
+		}
+	}
+
+	return decoded
+}
