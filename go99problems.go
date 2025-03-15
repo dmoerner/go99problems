@@ -203,3 +203,26 @@ func Decode[E comparable](e []RLEPair[E]) []E {
 
 	return decoded
 }
+
+// EncodeDirect (13): RLE, direct solution
+//
+// I find the spec for this somewhat unclear, but I believe the task is
+// to edit the encoding in-place, rather than appending a completed tuple
+// to the list.
+func EncodeDirect[S ~[]E, E comparable](s S) []RLEPair[E] {
+	if s == nil {
+		return nil
+	}
+
+	encoded := []RLEPair[E]{{1, s[0]}}
+
+	for _, v := range s[1:] {
+		if v == encoded[len(encoded)-1].Element {
+			encoded[len(encoded)-1].Count += 1
+		} else {
+			encoded = append(encoded, RLEPair[E]{1, v})
+		}
+	}
+
+	return encoded
+}
