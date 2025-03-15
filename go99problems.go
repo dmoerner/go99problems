@@ -236,3 +236,14 @@ func Dupli[S ~[]E, E any](s S) S {
 	}
 	return duplicated
 }
+
+// Repli (15): Replicate the elements of a list a given number of times.
+func Repli[S ~[]E, E any](s S, count int) S {
+	var replicated S
+	for _, v := range s {
+		for range count {
+			replicated = append(replicated, v)
+		}
+	}
+	return replicated
+}

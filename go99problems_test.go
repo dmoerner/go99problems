@@ -322,3 +322,13 @@ func TestDupli(t *testing.T) {
 		t.Errorf("fail with int slice %v, expected: %v, received: %v", int_input, int_expected, int_received)
 	}
 }
+
+func TestRepli(t *testing.T) {
+	byte_input := []byte("abc")
+	byte_expected := []byte("aaabbbccc")
+	byte_received := Repli(byte_input, 3)
+
+	if !cmp.Equal(byte_expected, byte_received) {
+		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
+	}
+}
