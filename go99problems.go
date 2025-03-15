@@ -166,25 +166,25 @@ func Encode[S ~[]E, E comparable](s S) []RLEPair[E] {
 // at all costs. Other languages like Haskell with the same contraints use option
 // ADTs for this, which Go also does not support. The struct approach from Problem
 // 10 is best, but here's a simple interface implementation anyway with a flat slice.
-func EncodeModified[S ~[]E, E comparable](s S) [][]interface{} {
+func EncodeModified[S ~[]E, E comparable](s S) [][]any {
 	if s == nil {
 		return nil
 	}
 
-	var encoded [][]interface{}
+	var encoded [][]any
 
 	thisEl := s[0]
 	thisCount := 0
 	for _, v := range s {
 		if v != thisEl {
-			encoded = append(encoded, []interface{}{thisCount, thisEl})
+			encoded = append(encoded, []any{thisCount, thisEl})
 			thisCount = 0
 		}
 		thisCount += 1
 		thisEl = v
 	}
 
-	encoded = append(encoded, []interface{}{thisCount, thisEl})
+	encoded = append(encoded, []any{thisCount, thisEl})
 
 	return encoded
 }
@@ -196,7 +196,7 @@ func Decode[E comparable](e []RLEPair[E]) []E {
 	var decoded []E
 
 	for _, v := range e {
-		for i := 0; i < v.Count; i++ {
+		for range v.Count {
 			decoded = append(decoded, v.Element)
 		}
 	}

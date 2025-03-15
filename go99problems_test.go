@@ -264,7 +264,7 @@ func TestEncode(t *testing.T) {
 
 func TestEncodeModified(t *testing.T) {
 	byte_input := []byte("aaaabccaadeeee")
-	byte_expected := [][]interface{}{
+	byte_expected := [][]any{
 		{4, byte('a')},
 		{1, byte('b')},
 		{2, byte('c')},
