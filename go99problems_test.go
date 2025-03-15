@@ -342,3 +342,13 @@ func TestDropEvery(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
 	}
 }
+
+func TestSplit(t *testing.T) {
+	byte_input := []byte("abcdefghik")
+	byte_expectedleft, byte_expectedright := []byte("abc"), []byte("defghik")
+	byte_receivedleft, byte_receivedright := Split(byte_input, 3)
+
+	if !cmp.Equal(byte_expectedleft, byte_receivedleft) || !cmp.Equal(byte_expectedright, byte_receivedright) {
+		t.Errorf("fail with byte slice %s, expected left: %s, received left: %s, expected right: %s, expected left: %s", byte_input, byte_expectedleft, byte_receivedleft, byte_expectedright, byte_receivedright)
+	}
+}

@@ -259,3 +259,15 @@ func DropEvery[S ~[]E, E any](s S, n int) S {
 	}
 	return dropped
 }
+
+// Split (17): Split a list into two parts, the length of the first part is
+// given. To continue our theme, we return copies.
+func Split[S ~[]E, E any](s S, n int) (S, S) {
+	left := make(S, n)
+	right := make(S, len(s)-n)
+
+	copy(left, s[:n])
+	copy(right, s[n:])
+
+	return left, right
+}
