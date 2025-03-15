@@ -352,3 +352,13 @@ func TestSplit(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected left: %s, received left: %s, expected right: %s, expected left: %s", byte_input, byte_expectedleft, byte_receivedleft, byte_expectedright, byte_receivedright)
 	}
 }
+
+func TestSlice(t *testing.T) {
+	byte_input := []byte("abcdefghik")
+	byte_expected := []byte("cdefg")
+	byte_received := Slice(byte_input, 3, 7)
+
+	if !cmp.Equal(byte_expected, byte_received) {
+		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
+	}
+}

@@ -271,3 +271,11 @@ func Split[S ~[]E, E any](s S, n int) (S, S) {
 
 	return left, right
 }
+
+// Slice (18): Extract a slice from a list. Inclusive range, 1-indexed.
+// Return a copy.
+func Slice[S ~[]E, E any](s S, i int, k int) S {
+	sliced := make(S, k-i+1)
+	copy(sliced, s[i-1:k+1])
+	return sliced
+}
