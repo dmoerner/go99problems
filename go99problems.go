@@ -288,3 +288,13 @@ func Rotate[S ~[]E, E any](s S, n int) S {
 	}
 	return slices.Concat(s[places:], s[:places])
 }
+
+// RemoveAt (20): Remove the K'th element from a list. 1-indexed.
+// Return a new list.
+func RemoveAt[S ~[]E, E any](k int, s S) (E, S) {
+	if k < 1 || k > len(s) {
+		return *new(E), s
+	}
+
+	return s[k-1], slices.Concat(s[:k-1], s[k:])
+}

@@ -388,3 +388,13 @@ func TestRotate(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input_zero, byte_expected_zero, byte_received_zero)
 	}
 }
+
+func TestRemoveAt(t *testing.T) {
+	byte_input := []byte("abcd")
+	byte_expected_el, byte_expected_rem := byte('b'), []byte("acd")
+	byte_received_el, byte_received_rem := RemoveAt(2, byte_input)
+
+	if !cmp.Equal(byte_expected_el, byte_received_el) || !cmp.Equal(byte_expected_rem, byte_received_rem) {
+		t.Errorf("fail with byte slice %s, expected el: %c, received el: %c, expected rem: %s, expected el: %s", byte_input, byte_expected_el, byte_received_el, byte_expected_rem, byte_received_rem)
+	}
+}
