@@ -226,3 +226,13 @@ func EncodeDirect[S ~[]E, E comparable](s S) []RLEPair[E] {
 
 	return encoded
 }
+
+// Dupli (14): Duplicate the elements of a list.
+func Dupli[S ~[]E, E any](s S) S {
+	var duplicated S
+	for _, v := range s {
+		duplicated = append(duplicated, v)
+		duplicated = append(duplicated, v)
+	}
+	return duplicated
+}

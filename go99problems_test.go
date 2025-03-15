@@ -312,3 +312,13 @@ func TestEncodeDirect(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected: %v, received: %v", byte_input, byte_expected, byte_received)
 	}
 }
+
+func TestDupli(t *testing.T) {
+	int_input := []int{1, 2, 3}
+	int_expected := []int{1, 1, 2, 2, 3, 3}
+	int_received := Dupli(int_input)
+
+	if !cmp.Equal(int_expected, int_received) {
+		t.Errorf("fail with int slice %v, expected: %v, received: %v", int_input, int_expected, int_received)
+	}
+}
