@@ -247,3 +247,15 @@ func Repli[S ~[]E, E any](s S, count int) S {
 	}
 	return replicated
 }
+
+// DropEvery (16): Drop every N'th element from a list.
+func DropEvery[S ~[]E, E any](s S, n int) S {
+	var dropped S
+	for i, v := range s {
+		if (i+1)%n == 0 {
+			continue
+		}
+		dropped = append(dropped, v)
+	}
+	return dropped
+}

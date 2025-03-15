@@ -332,3 +332,13 @@ func TestRepli(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
 	}
 }
+
+func TestDropEvery(t *testing.T) {
+	byte_input := []byte("abcdefghik")
+	byte_expected := []byte("abdeghk")
+	byte_received := DropEvery(byte_input, 3)
+
+	if !cmp.Equal(byte_expected, byte_received) {
+		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
+	}
+}
