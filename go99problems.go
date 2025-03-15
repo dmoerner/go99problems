@@ -279,3 +279,12 @@ func Slice[S ~[]E, E any](s S, i int, k int) S {
 	copy(sliced, s[i-1:k+1])
 	return sliced
 }
+
+// Rotate (19): Rotate a list N places to the left.
+func Rotate[S ~[]E, E any](s S, n int) S {
+	places := n % len(s)
+	if places < 0 {
+		places += len(s)
+	}
+	return slices.Concat(s[places:], s[:places])
+}

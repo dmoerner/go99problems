@@ -362,3 +362,29 @@ func TestSlice(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
 	}
 }
+
+func TestRotate(t *testing.T) {
+	byte_input_pos := []byte("abcdefgh")
+	byte_expected_pos := []byte("defghabc")
+	byte_received_pos := Rotate(byte_input_pos, 3)
+
+	if !cmp.Equal(byte_expected_pos, byte_received_pos) {
+		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input_pos, byte_expected_pos, byte_received_pos)
+	}
+
+	byte_input_neg := []byte("abcdefgh")
+	byte_expected_neg := []byte("ghabcdef")
+	byte_received_neg := Rotate(byte_input_neg, -2)
+
+	if !cmp.Equal(byte_expected_neg, byte_received_neg) {
+		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input_neg, byte_expected_neg, byte_received_neg)
+	}
+
+	byte_input_zero := []byte("abcdefgh")
+	byte_expected_zero := byte_input_zero
+	byte_received_zero := Rotate(byte_input_zero, len(byte_input_zero))
+
+	if !cmp.Equal(byte_expected_zero, byte_received_zero) {
+		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input_zero, byte_expected_zero, byte_received_zero)
+	}
+}
