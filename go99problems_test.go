@@ -419,3 +419,19 @@ func TestRange(t *testing.T) {
 		t.Errorf("fail with range %d to %d, expected: %v, received: %v", start, end, int_expected, int_received)
 	}
 }
+
+// TestRndSelect tests RndSelect. Since this algorithm is non-deterministic,
+// we test the basic invariant: The correct slice length is returned. Note
+// that we cannot even test if each element in the result is in the original,
+// since that would require strengthening the type generic from any to
+// comparable.
+func TestRndSelect(t *testing.T) {
+	byte_input := []byte("abcdefgh")
+	count_input := 3
+
+	byte_received := RndSelect(byte_input, count_input)
+
+	if len(byte_received) != count_input {
+		t.Errorf("expected to receive %d elements, received %d.", count_input, len(byte_received))
+	}
+}

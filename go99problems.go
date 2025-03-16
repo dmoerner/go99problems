@@ -4,6 +4,7 @@ package go99problems
 
 import (
 	"fmt"
+	"math/rand"
 	"slices"
 )
 
@@ -324,4 +325,21 @@ func Range(start, end int) []int {
 		newslice = append(newslice, start+i)
 	}
 	return newslice
+}
+
+// RndSelect (23): Extract a given number of randomly selected elements
+// from a list. The specification does not say if duplicates are prohibited,
+// so we allow them.
+func RndSelect[S ~[]E, E any](s S, count int) S {
+	if count < 1 {
+		return *new(S)
+	}
+
+	selected := make(S, 0, count)
+
+	for range count {
+		selected = append(selected, s[rand.Intn(len(s))])
+	}
+
+	return selected
 }
