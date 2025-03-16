@@ -408,3 +408,14 @@ func TestInsertAt(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
 	}
 }
+
+func TestRange(t *testing.T) {
+	start := 4
+	end := 9
+	int_expected := []int{4, 5, 6, 7, 8, 9}
+	int_received := Range(start, end)
+
+	if !cmp.Equal(int_expected, int_received) {
+		t.Errorf("fail with range %d to %d, expected: %v, received: %v", start, end, int_expected, int_received)
+	}
+}

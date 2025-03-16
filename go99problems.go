@@ -316,3 +316,12 @@ func InsertAt[S ~[]E, E any](el E, s S, k int) S {
 
 	return newslice
 }
+
+// Range (22): Create a list containing all integers within a given range, inclusive.
+func Range(start, end int) []int {
+	newslice := make([]int, 0, end-start+1)
+	for i := range end - start + 1 {
+		newslice = append(newslice, start+i)
+	}
+	return newslice
+}
