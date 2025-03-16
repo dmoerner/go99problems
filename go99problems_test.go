@@ -435,3 +435,23 @@ func TestRndSelect(t *testing.T) {
 		t.Errorf("expected to receive %d elements, received %d.", count_input, len(byte_received))
 	}
 }
+
+func TestDiffSelect(t *testing.T) {
+	n, m := 6, 49
+
+	int_received := DiffSelect(6, 49)
+
+	if len(int_received) != n {
+		t.Errorf("expected to receive %d elements, received %d.", n, len(int_received))
+	}
+
+	for i, v := range int_received {
+		if v < 1 || v > m {
+			t.Errorf("received value %d outside of range 1 to %d", v, m)
+		}
+
+		if slices.Contains(int_received[i+1:], v) {
+			t.Errorf("received duplicate value %d in selection %v", v, int_received)
+		}
+	}
+}

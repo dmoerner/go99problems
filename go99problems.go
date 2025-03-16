@@ -343,3 +343,41 @@ func RndSelect[S ~[]E, E any](s S, count int) S {
 
 	return selected
 }
+
+// RndSelectUnique: Variation on Problem 23 which does not pick the same
+// element twice. How do we do this efficiently? My technique is to shuffle
+// all possible indices and then take a subset of those. I wish this were
+// lazier, but it should be far more efficient than manually checking for
+// dupes.
+func RndSelectUnique[S ~[]E, E any](s S, count int) S {
+	if count < 1 {
+		return *new(S)
+	}
+
+	if count > len(s) {
+		count = len(s)
+	}
+
+	selected := make(S, 0, count)
+
+	indices := Range(0, len(s)-1)
+
+	rand.Shuffle(len(indices), func(i, j int) {
+		indices[i], indices[j] = indices[j], indices[i]
+	})
+
+	for i := range count {
+		selected = append(selected, s[indices[i]])
+	}
+
+	return selected
+}
+
+// DiffSelect (24): Draw N different random numbers from the set 1..M.
+func DiffSelect(n, m int) []int {
+	possibilities := Range(1, m)
+
+	selected := RndSelectUnique(possibilities, n)
+
+	return selected
+}
