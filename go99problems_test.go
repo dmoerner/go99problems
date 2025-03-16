@@ -398,3 +398,13 @@ func TestRemoveAt(t *testing.T) {
 		t.Errorf("fail with byte slice %s, expected el: %c, received el: %c, expected rem: %s, expected el: %s", byte_input, byte_expected_el, byte_received_el, byte_expected_rem, byte_received_rem)
 	}
 }
+
+func TestInsertAt(t *testing.T) {
+	byte_input := []byte("abcd")
+	byte_expected := []byte("aebcd")
+	byte_received := InsertAt(byte('e'), byte_input, 2)
+
+	if !cmp.Equal(byte_expected, byte_received) {
+		t.Errorf("fail with byte slice %s, expected: %s, received: %s", byte_input, byte_expected, byte_received)
+	}
+}

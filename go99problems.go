@@ -298,3 +298,21 @@ func RemoveAt[S ~[]E, E any](k int, s S) (E, S) {
 
 	return s[k-1], slices.Concat(s[:k-1], s[k:])
 }
+
+// InsertAt (21): Insert an element at a given position into a list.
+// 1-indexed, return a new list.
+func InsertAt[S ~[]E, E any](el E, s S, k int) S {
+	if k < 1 {
+		k = 1
+	} else if k > len(s) {
+		k = len(s)
+	}
+
+	newslice := make(S, 0, len(s)+1)
+
+	newslice = append(newslice, s[:k-1]...)
+	newslice = append(newslice, el)
+	newslice = append(newslice, s[k-1:]...)
+
+	return newslice
+}
