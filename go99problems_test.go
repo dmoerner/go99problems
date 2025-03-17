@@ -455,3 +455,13 @@ func TestDiffSelect(t *testing.T) {
 		}
 	}
 }
+
+func TestRndPermu(t *testing.T) {
+	byte_input := []byte("abcdef")
+
+	byte_received := RndPermu(byte_input)
+
+	if len(byte_received) != len(byte_input) {
+		t.Errorf("expected to receive %d elements, received %d.", len(byte_received), len(byte_input))
+	}
+}

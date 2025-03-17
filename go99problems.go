@@ -381,3 +381,16 @@ func DiffSelect(n, m int) []int {
 
 	return selected
 }
+
+// RndPermu (25): Generate a random permutation of the elements of a list.
+func RndPermu[S ~[]E, E any](s S) S {
+	permuted := make(S, len(s))
+
+	copy(permuted, s)
+
+	rand.Shuffle(len(s), func(i, j int) {
+		permuted[i], permuted[j] = permuted[j], permuted[i]
+	})
+
+	return permuted
+}
