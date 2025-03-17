@@ -17,6 +17,9 @@ solutions:
    in-place.
 3. Generic structs to approximate tuples and nested slices, neither of which
    are built-in to Go.
+4. The lack of a built-in `cons` operator when building new slices is
+   inconvenient. It must be worked around by initializing a new slice,
+   appending the new head, and then using a spread to append the tail.
 
 # Links
 

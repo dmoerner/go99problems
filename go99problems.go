@@ -394,3 +394,42 @@ func RndPermu[S ~[]E, E any](s S) S {
 
 	return permuted
 }
+
+// Combinations (26): Generate combinations of K distinct objects chosen
+// from the N elements of a list.
+//
+// Go slices have no built-in cons operator, so we must manually create a
+// new slice with the leading new element, and then append on the rest with
+// a spread operator.
+func Combinations[S ~[]E, E any](k int, s S) []S {
+	if k < 0 {
+		return nil
+	}
+
+	if k == 0 {
+		return []S{{}}
+	}
+
+	// Recursively collect the remainders for the current
+	// element, and the combinations that do not include the
+	// current element.
+	cur := Combinations(k-1, s[1:])
+
+	nxt := []S{}
+	if k <= len(s)-1 {
+		nxt = Combinations(k, s[1:])
+	}
+
+	// Iteratively prepend the current element to
+	// the remainders.
+	var curApp []S
+
+	for _, v := range cur {
+		newslice := make(S, 0, len(v)+1)
+		newslice = append(newslice, s[0])
+		newslice = append(newslice, v...)
+		curApp = append(curApp, newslice)
+	}
+
+	return slices.Concat(curApp, nxt)
+}

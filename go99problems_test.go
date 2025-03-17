@@ -465,3 +465,30 @@ func TestRndPermu(t *testing.T) {
 		t.Errorf("expected to receive %d elements, received %d.", len(byte_received), len(byte_input))
 	}
 }
+
+func TestCombinations(t *testing.T) {
+	data := []struct {
+		name     string
+		k        int
+		input    []byte
+		expected [][]byte
+	}{
+		{"zero/three", 0, []byte("abcdef"), [][]byte{{}}},
+		{"one/three", 1, []byte("abc"), [][]byte{[]byte("a"), []byte("b"), []byte("c")}},
+		{"two/three", 2, []byte("abc"), [][]byte{[]byte("ab"), []byte("ac"), []byte("bc")}},
+		{"three/three", 3, []byte("abc"), [][]byte{[]byte("abc")}},
+		{"two/four", 2, []byte("abcd"), [][]byte{
+			[]byte("ab"), []byte("ac"), []byte("ad"),
+			[]byte("bc"), []byte("bd"), []byte("cd"),
+		}},
+	}
+
+	for _, d := range data {
+		t.Run(d.name, func(t *testing.T) {
+			received := Combinations(d.k, d.input)
+			if !cmp.Equal(d.expected, received) {
+				t.Errorf("expected %v, got %v", d.expected, received)
+			}
+		})
+	}
+}
